@@ -1,7 +1,7 @@
 # Command Parser
 # Parses user input into structured commands
 
-from typing import NamedTuple, Dict, List, Optional
+from typing import NamedTuple, Dict, List, Optional, Tuple
 
 
 class ParsedCommand(NamedTuple):
@@ -104,7 +104,7 @@ class CommandParser:
         
         return ParsedCommand(command, args, input_string)
     
-    def validate_command(self, parsed: ParsedCommand) -> tuple[bool, Optional[str]]:
+    def validate_command(self, parsed: ParsedCommand) -> Tuple[bool, Optional[str]]:
         """
         Validate a parsed command.
         

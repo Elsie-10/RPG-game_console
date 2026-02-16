@@ -11,7 +11,6 @@ game_bp = Blueprint('game', __name__)
 # Global game engine instance (shared with command routes)
 game_state_repo = GameStateRepository()
 
-
 @game_bp.route('/game/start', methods=['POST'])
 def start_game():
     """Start a new game."""
@@ -33,7 +32,6 @@ def start_game():
             }
         }
     })
-
 
 @game_bp.route('/game/state', methods=['GET'])
 def get_game_state():
@@ -72,7 +70,6 @@ def get_game_state():
         }
     })
 
-
 @game_bp.route('/game/location', methods=['GET'])
 def get_current_location():
     """Get current location details."""
@@ -108,7 +105,6 @@ def get_current_location():
         }
     })
 
-
 @game_bp.route('/game/location/<direction>', methods=['POST'])
 def move_player(direction):
     """Move player in a direction."""
@@ -128,7 +124,6 @@ def move_player(direction):
     
     return jsonify(result)
 
-
 @game_bp.route('/game/look', methods=['GET'])
 def look_around():
     """Look around the current location."""
@@ -140,7 +135,6 @@ def look_around():
     
     result = game_engine.handle_look()
     return jsonify(result)
-
 
 @game_bp.route('/game/inventory', methods=['GET'])
 def get_inventory():
@@ -154,7 +148,6 @@ def get_inventory():
     result = game_engine.handle_inventory()
     return jsonify(result)
 
-
 @game_bp.route('/game/stats', methods=['GET'])
 def get_stats():
     """Get player stats."""
@@ -165,4 +158,41 @@ def get_stats():
         }), 400
     
     result = game_engine.handle_stats()
+    return jsonify(result)
+
+# New action processing endpoints
+@game_bp.route('/game/take/<item_name>', methods=['POST'])
+def take_item(item_name):
+    """Take an item from the current location."""
+    if not game_engine.game_state:
+        return jsonify({
+            "success": False,
+            "message": "No game in progress."
+        }), 400
+    
+    result = game_engine.handle_take([item_name])
+    return jsonify(result)
+
+@game_bp.route('/game/drop/<item_name>', methods=['POST'])
+def drop_item(item_name):
+    """Drop an item from inventory."""
+    if not game_engine.game_state:
+        return jsonify({
+            "success": False,
+            "message": "No game in progress."
+        }), 400
+    
+    result = game_engine.handle_drop([item_name])
+    return jsonify(result)
+
+@game_bp.route('/game/attack/<enemy_name>', methods=['POST'])
+def attack_enemy(enemy_name):
+    """Attack an enemy in the current location."""
+    if not game_engine.game_state:
+        return jsonify({
+            "success": False,
+            "message": "No game in progress."
+        }), 400
+    
+    result = game_engine.handle_attack([enemy_name])
     return jsonify(result)

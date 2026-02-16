@@ -1,4 +1,6 @@
-# A player or NPC in the game 
+# A player or NPC in the game
+from models.entity import Entity 
+
 class Character(Entity):
     max_health = 100 # class variable
 

@@ -1,4 +1,6 @@
 # something the player can pick up, use, or equip
+from models.entity import Entity 
+
 class Item(Entity):
     def __init__(self,id,name,description,item_type,value,effect,can_equip):
         super().__init__(id,name,description)
@@ -13,8 +15,8 @@ WEAPONS = {
     "magic_staff": {"name": "Magic Staff", "value": 50, "effect": "+20 magic"}
 }
 POTIONS = {
-    "health_potion": {"name": "Health Potion", ...},
-    "mana_potion": {"name": "Mana Potion", ...}
+    "health_potion": {"name": "Health Potion"},
+    "mana_potion": {"name": "Mana Potion"}
 }
 
 # Create item by name
