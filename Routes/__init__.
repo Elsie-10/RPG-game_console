@@ -1,0 +1,8 @@
+# Routes package
+# API endpoints
+
+from Routes.player_routes import player_bp
+from Routes.game_routes import game_bp
+from Routes.command_routes import command_bp
+
+__all__ = ['player_bp', 'game_bp', 'command_bp']
